@@ -1,20 +1,9 @@
 {
     "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
-        "sku": {
-            "defaultValue": "Standard",
-            "type": "string"
-        },
-        "skuCode": {
-            "defaultValue": "S1",
-            "type": "string"
-        }
-    },
     "variables": {
         "spatialAnchor_name": "[concat('sh360mrapi',uniqueString(resourceGroup().id))]",
         "app_name": "[concat('sh360mixedreality',uniqueString(resourceGroup().id))]",
-        "appplan_name": "[concat('sh360mixedrealityplan',uniqueString(resourceGroup().id))]",
         "cosmosdb_name": "[concat('cosmosdb',uniqueString(resourceGroup().id))]"
     },
     "resources": [
@@ -113,25 +102,8 @@
                 }
             },
             "dependsOn": [
-                "[concat('Microsoft.Web/serverfarms/', variables('appplan_name'))]",
                 "[resourceId('microsoft.insights/components/', variables('app_name'))]"
             ]
-        },
-        {
-            "type": "Microsoft.Web/serverfarms",
-            "sku": {
-                "Tier": "[parameters('sku')]",
-                "Name": "[parameters('skuCode')]"
-            },
-            "name": "[variables('appplan_name')]",
-            "apiVersion": "2016-09-01",
-            "location": "East US 2",
-            "properties": {
-                "name": "[variables('appplan_name')]",
-                "workerSizeId": "0",
-                "numberOfWorkers": "1",
-                "hostingEnvironment": ""
-            }
         },
         {
             "type": "microsoft.insights/components",
