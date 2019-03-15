@@ -3,12 +3,12 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "sku": {
-            "type": "string",
-            "defaultValue": "Standard"
+            "defaultValue": "Standard",
+            "type": "string"
         },
         "skuCode": {
-            "type": "string",
-            "defaultValue": "S1"
+            "defaultValue": "S1",
+            "type": "string"
         }
     },
     "variables": {
@@ -110,10 +110,7 @@
                             "value": "Tenant Id of the Azure Active Directory that the SmartHotel360 IoT Solution was deployed in"
                         }
                     ]
-                },
-                "name": "[variables('app_name')]",
-                "serverFarmId": "[concat('/providers/Microsoft.Web/serverfarms/', variables('appplan_name'))]",
-                "hostingEnvironment": ""
+                }
             },
             "dependsOn": [
                 "[concat('Microsoft.Web/serverfarms/', variables('appplan_name'))]",
