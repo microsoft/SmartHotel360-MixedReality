@@ -117,7 +117,7 @@
             },
             "dependsOn": [
                 "[concat('Microsoft.Web/serverfarms/', variables('appplan_name'))]",
-                "microsoft.insights/components/', variables('app_name')"
+                "[resourceId('microsoft.insights/components/', variables('app_name'))]"
             ]
         },
         {
