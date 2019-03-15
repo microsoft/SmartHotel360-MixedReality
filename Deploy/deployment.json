@@ -1,0 +1,175 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sku": {
+            "type": "string",
+            "defaultValue": "Standard"
+        },
+        "skuCode": {
+            "type": "string",
+            "defaultValue": "S1"
+        }
+    },
+    "variables": {
+        "spatialAnchor_name": "[concat('sh360mrapi',uniqueString(resourceGroup().id))]",
+        "app_name": "[concat('sh360mixedreality',uniqueString(resourceGroup().id))]",
+        "appplan_name": "[concat('sh360mixedrealityplan',uniqueString(resourceGroup().id))]",
+        "cosmosdb_name": "[concat('cosmosdb',uniqueString(resourceGroup().id))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.MixedReality/spatialAnchorsAccounts",
+            "name": "[variables('spatialAnchor_name')]",
+            "apiVersion": "2019-02-28-preview",
+            "location": "eastus2",
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "name": "[variables('app_name')]",
+            "apiVersion": "2016-03-01",
+            "location": "East US 2",
+            "properties": {
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                            "value": "[reference(resourceId('microsoft.insights/components/', variables('app_name')), '2015-05-01').InstrumentationKey]"
+                        },
+                        {
+                            "name": "ApplicationInsightsAgent_EXTENSION_VERSION",
+                            "value": "~2"
+                        },
+                        {
+                            "name": "XDT_MicrosoftApplicationInsights_Mode",
+                            "value": "recommended"
+                        },
+                        {
+                            "name": "DiagnosticServices_EXTENSION_VERSION",
+                            "value": "~3"
+                        },
+                        {
+                            "name": "APPINSIGHTS_PROFILERFEATURE_VERSION",
+                            "value": "1.0.0"
+                        },
+                        {
+                            "name": "APPINSIGHTS_SNAPSHOTFEATURE_VERSION",
+                            "value": "1.0.0"
+                        },
+                        {
+                            "name": "InstrumentationEngine_EXTENSION_VERSION",
+                            "value": "~1"
+                        },
+                        {
+                            "name": "SnapshotDebugger_EXTENSION_VERSION",
+                            "value": "~1"
+                        },
+                        {
+                            "name": "XDT_MicrosoftApplicationInsights_BaseExtensions",
+                            "value": "~1"
+                        },
+                        {
+                            "name": "DatabaseSettings__MongoDBConnectionString",
+                            "value": "This is the connection string for the SmartHotel360 Mixed Reality Cosmsos DB"
+                        },
+                        {
+                            "name": "SpatialServices__TenantId",
+                            "value": "Tenant Id of your Active Directory which the Application Registration was created"
+                        },
+                        {
+                            "name": "SpatialServices__AccountId",
+                            "value": "Account Id of the Azure Spatial Anchors Account"
+                        },
+                        {
+                            "name": "SpatialServices__applicationId",
+                            "value": "Application Id of the Application Registration created in previous steps"
+                        },
+                        {
+                            "name": "SpatialServices__applicationKey",
+                            "value": "Secret of the Application Registration created in previous steps"
+                        },
+                        {
+                            "name": "authorizationSettings__ApiKey",
+                            "value": "Secret api key that is used to protect the Mixed Reality API"
+                        },
+                        {
+                            "name": "DigitalTwins__ManagementApiUrl",
+                            "value": "Management API Url of the SmartHotel360 Digital Twins instance created in previous steps"
+                        },
+                        {
+                            "name": "DigitalTwins__ClientId",
+                            "value": "Application Id of the Application Registration created from the SmartHotel360 IoT. In case you used a different Application."
+                        },
+                        {
+                            "name": "DigitalTwins__ClientSecret",
+                            "value": "Application secret of the Application Registration used from the SmartHotel360 IoT"
+                        },
+                        {
+                            "name": "DigitalTwins__TenantId",
+                            "value": "Tenant Id of the Azure Active Directory that the SmartHotel360 IoT Solution was deployed in"
+                        }
+                    ]
+                },
+                "name": "[variables('app_name')]",
+                "serverFarmId": "[concat('/providers/Microsoft.Web/serverfarms/', variables('appplan_name'))]",
+                "hostingEnvironment": ""
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Web/serverfarms/', variables('appplan_name'))]",
+                "microsoft.insights/components/', variables('app_name')"
+            ]
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "Tier": "[parameters('sku')]",
+                "Name": "[parameters('skuCode')]"
+            },
+            "name": "[variables('appplan_name')]",
+            "apiVersion": "2016-09-01",
+            "location": "East US 2",
+            "properties": {
+                "name": "[variables('appplan_name')]",
+                "workerSizeId": "0",
+                "numberOfWorkers": "1",
+                "hostingEnvironment": ""
+            }
+        },
+        {
+            "type": "microsoft.insights/components",
+            "name": "[variables('app_name')]",
+            "apiVersion": "2015-05-01",
+            "location": "eastus",
+            "properties": {
+                "ApplicationId": "[variables('app_name')]",
+                "Request_Source": "IbizaWebAppExtensionCreate"
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDb/databaseAccounts",
+            "kind": "MongoDB",
+            "name": "[variables('cosmosdb_name')]",
+            "apiVersion": "2015-04-08",
+            "location": "eastus2",
+            "tags": {
+                "defaultExperience": "Azure Cosmos DB for MongoDB API"
+            },
+            "properties": {
+                "databaseAccountOfferType": "Standard",
+                "locations": [
+                    {
+                        "id": "[concat(variables('cosmosdb_name'), '-', 'eastus2')]",
+                        "failoverPriority": 0,
+                        "locationName": "East US 2"
+                    }
+                ],
+                "enableMultipleWriteLocations": false,
+                "isVirtualNetworkFilterEnabled": false,
+                "virtualNetworkRules": [],
+                "ipRangeFilter": "",
+                "dependsOn": []
+            }
+        }
+    ]
+}

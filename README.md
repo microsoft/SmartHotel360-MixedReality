@@ -18,7 +18,7 @@ For this reference app scenario, we rely on several apps and services from the S
 
 ## Getting Started
 
-SmartHotel360 deployed a new mixed Reality solution built on top of **Azure Spatial Anchors** that is compatible with Android and HoloLens devices through Unity to visualize the information of the hotel room sensors used in the Internet of Things (IoT) solutions mentioned below. 
+SmartHotel360 deployed a new Mixed Reality solution built on top of **Azure Spatial Anchors** that is compatible with Android and HoloLens devices through Unity to visualize the information of the hotel room sensors used in the Internet of Things (IoT) solutions mentioned below. 
 
 ## Demo Scripts
 
@@ -26,9 +26,11 @@ You can find a **[demo script](Documents/DemoScript)** with walkthroughs once yo
 
 ## Setup
 
+### Prerequisite
+
 Prior to following these steps, you should have already completed the steps and deployed the SmartHotel360 IoT solution found in this repository: https://github.com/Microsoft/SmartHotel360-IoT. These steps rely on resources deployed from that solution and this API will not function without those resources.
 
-### 1. Set up a Service Principal and register an Azure Active Directory application
+### 1. Set up a Service Principal and Register an Azure Active Directory Application
 
  Follow these instructions to [create a service principal and register an Azure Active Directory (AD) application](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-create-service-principal-portal?view=azure-cli-latest).
 
@@ -38,79 +40,124 @@ During the creation process you will need to take note of the following informat
 - App Id
 - App Key
 
-> Note: you can use the same app you created for the IoT demo.
+> Note: you can use the same [application you created for the IoT demo](https://github.com/Microsoft/SmartHotel360-IoT#set-up-a-service-principal-and-register-an-azure-active-directory-application).
 
-### 2. Setup Azure Spatial Anchors Account
+### 2. Set permissions and security for the Application
 
-Use the Azure Portal to create an Azure Spatial Anchors account resource. Either create a new resource group or use an existing one and click the "Add" button. Search for "Spatial Anchors" and select the first result. Assign a name to your new Spatial Anchors account. Once the Spatial Anchors account is created, make a note of the Account Id found on the Overview page of the newly created account.
+In the App Registration, click on Settings and then Required Permissions.
+* Microsoft Mixed Reality
+  * Click `Add` on the top left
+  * Under select an API, type `Azure`, then choose `Microsoft Mixed Reality`
+    * NOTE: If this option does NOT show, you may need to register the Mixed Reality resource provider using the following steps in a **Powershell** window:
+       1. `Login-AzureRmAccount -SubscriptionId {subcription id}`
+       2. `Register-AzureRmResourceProvider -ProviderNamespace 'Microsoft.MixedReality'`
+       3. Wait until the provider registration is complete, can be checked via: `Get-AzureRmResourceProvider -ProviderNamespace 'Microsoft.MixedReality'`
+  * Check the Sign In Access Application Permissions box
+  * Save
 
-### 3. Assign permissions to the Azure AD Application Registration
+### 3. Create Azure Resources
 
-After creating the application registration, you need to assign that application permissions to use the Azure Spatial Anchors account. Navigate to the newly created Spatial Anchors account in the Azure Portal and select Access Control (IAM) tab. Add a role assignment to this resource and select the Application Registration that you created in the first step. Assign this application registration to the role of Spatial Anchors Account Owner and click save.
+In order to run this demo you will need the following resources:
+
+* [Spatial Anchors](https://azure.microsoft.com/en-us/services/spatial-anchors/)
+* [Cosmos DB](https://azure.microsoft.com/en-us/services/cosmos-db/) 
+* [App Service](https://azure.microsoft.com/en-us/services/app-service/)
+    * Requires an App Service Plan and Application Insight to monitor the API.
+
+We have added an ARM template to automate the creation of the resources:
+
+[![Deploy to Azure](Documents/Images/deploy-to-azure.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMicrosoft%2FSmartHotel360-MixedReality%2Fmaster%2FDeploy%2Fdeployment.json)
+
+> Note: This deployment will only create the resources. It will not deploy the solution.
+
+### 3. Assign permissions to the Azure Spatial Anchors
+
+After creating the resources. You need to assign that application permissions to use the Azure Spatial Anchors account. 
+
+1. Navigate to the newly created Spatial Anchors account in the Azure Portal.
+1. Select **Access Control (IAM)**. 
+1. Add a role assignment to this resource and select the Application Registration from the first step. 
+1. Assign **Owner** to the role of Spatial Anchors Account Owner and click **Save**.
 
 ### 4. Deploy the API project using Visual Studio
 
-Using Visual Studio 2017, open and build the API solution. Right click on the SmartHotel.MixedReality.API project and click Publish. Create a new App Service or choose an existing App Service if you already have created one. Click Publish and wait for the operation to finish. A new browser window should open and you should see the Swagger UI for the API endpoints.
+1. Using Visual Studio 2017 or later, open the API solution.
+1. Right click on the SmartHotel.MixedReality.API project and click Publish. 
+1. Choose the existing App Service that was already have created.
+1. Click Publish and wait for the operation to finish. 
+1. A new browser window should open and you should see the Swagger UI for the API endpoints.
 
 ### 5. Configure the API Application Settings
 
-In the Azure Portal, find the newly created App Service and navigate to the Application Settings blade. The following settings can be set in the Application Settings:
+In the Azure Portal, find the created App Service and navigate to the Application Settings blade. Complete the valuew of the following settings:
 
-1. DatabaseSettings__MongoDBConnectionString - This is the connection string for the SmartHotel 360 Cosmsos DB
+1. DatabaseSettings__MongoDBConnectionString - This is the connection string for the SmartHotel360 Mixed Reality Cosmsos DB
 2. SpatialServices__TenantId - Tenant Id of your Active Directory which the Application Registration was created
 3. SpatialServices__AccountId - Account Id of the Azure Spatial Anchors Account
 4. SpatialServices__applicationId - Application Id of the Application Registration created in previous steps
 5. SpatialServices__applicationKey - Secret of the Application Registration created in previous steps
 6. authorizationSettings__ApiKey - Secret api key that is used to protect the Mixed Reality API
-7. DigitalTwins__ManagementApiUrl - Management API Url of the Smart Hotel Digital Twins instance created in previous steps
-8. DigitalTwins__ClientId - Application Id of the Application Registration created from the SmartHotel 360 readme
-9. DigitalTwins__ClientSecret - Application Secreate of the Application Registration created from the SmartHotel 360 readme
-10. DigitalTwins__TenantId - Tenant Id of the Azure Active Directory that the SmartHotel 360 solution was deployed in.
+7. DigitalTwins__ManagementApiUrl - Management API Url of the SmartHotel360 Digital Twins instance created in previous steps
+8. DigitalTwins__ClientId - Application Id of the Application Registration created from the SmartHotel360 IoT. In case you used a different Application.
+9. DigitalTwins__ClientSecret - Application secret of the Application Registration used from the SmartHotel360 IoT
+10. DigitalTwins__TenantId - Tenant Id of the Azure Active Directory that the SmartHotel360 IoT Solution was deployed in.
 
-## Services
+> Note: for this step you will need the [User Settings](https://github.com/Microsoft/SmartHotel360-IoT#user-settings) file from the IoT demo.
 
-This folder contains the SmartHotel360 Mixed Reality API.
+### 6. Unity
 
-## Unity
+This is a cross-platform Unity project that shares as much C# code and assets as possible between platforms. The **SmartHotelMR** subfolder contains assets and scripts specific to this project. You can build the project  for a specific platform, please refer to the platform sections below.
 
-This is a cross-platform Unity project that shares as much code and assets as possible between platforms.  The SmartHotelMR subfolder contains assets and scripts specific to this project. For building for a specific platform, please refer to the platform sections below.
+### 7. Configuring the Unity Project Settings
 
-### Prerequisites
+Before building the Unity project for any platform, you'll need to update the settings.
+1. In your project open the **Unity/SmartHotelMR/Assets/SmartHotelMR/Scripts/Globals.cs** file.
+1. Fill in the values for your deployed SmartHotelMR Service API URL and API Key as well as your Spatial Anchors Account ID.
+    * **ServiceBaseUrl:** is the URL of the App Service where you deployed the SmartHotel.MixedReality.API project.
+    * **ApiKey:** is the API Key you used as **authorizationSettings__ApiKey** to protect the API.
+    * **SpatialAnchorsAccountId** you can get this value from the Azure Portal in the Overview tab.
 
-Prior to building the Unity project for any platform, you'll need to update the values in Unity/SmartHotelMR/Assets/SmartHotelMR/Scripts/Globals.cs.  Fill in the values for your deployed SmartHotelMR Service API URL and API Key as well as your Spatial Anchors Account ID.
+### 8. Android (Optional)
 
-### Android
+1. Make sure you have installed and loaded the [Android module](http://download.unity3d.com/download_unity/6e9a27477296/TargetSupportInstaller/UnitySetup-Android-Support-for-Editor-2018.3.0f2.exe) as part of your Unity setup.
 
-The Android version of this project uses ARCore for its Mixed Reality needs. Download the `unitypackage` file from the [ARCore SDK for Unity releases](https://github.com/google-ar/arcore-unity-sdk/releases/tag/v1.5.0) and import the custom asset package (it needs to be the version 1.5).  To build, switch to the Android platform and then select the Mobile/Android specific scenes in the Build Settings window.  Should look similar to this:
+2. The Android version of this project uses ARCore for its Mixed Reality needs, you will need to download the `unitypackage` file from the [ARCore SDK for Unity releases](https://github.com/google-ar/arcore-unity-sdk/releases/tag/v1.5.0) and import it as a custom asset package (it needs to be the version 1.5). 
+
+3. To build, switch to the Android platform and then select the Mobile/Android specific scenes in the Build Settings window. Should look similar to this:
 
 ![AndroidBuildSettings](Documents/Images/AndroidBuildSettings.png)
-After you build and Export the project, open it in Android Studio.  Once loaded and synced, build the solution.
 
-### HoloLens
+4. After you Build and Export the project, open it in Android Studio. Once loaded and synced, build the solution.
 
-The HoloLens version of this project uses the Mixed Reality Toolkit for AR needs. To build for the HoloLens platform, first switch platforms to Universal Windows Platform.  Then mark the HoloLens specific scenes as active and uncheck the Android scenes.  Your Build Settings should look like the screenshot below:
+### 9. HoloLens (Optional)
+
+1. Make sure you have installed and loaded the [Universal Windows Platform module](http://download.unity3d.com/download_unity/6e9a27477296/TargetSupportInstaller/UnitySetup-UWP-IL2CPP-Support-for-Editor-2018.3.0f2.exe) as part of your Unity setup.
+
+2. The HoloLens version of this project uses the Mixed Reality Toolkit for Augmented Reality needs. To build for the HoloLens platform, first switch platforms to **Universal Windows Platform**. 
+
+3. Mark the HoloLens specific scenes as active and uncheck the Android scenes.  
+
+4. Your Build Settings should look like similat to this:
 
 ![HoloLensBuildSettings](Documents/Images/HoloLensBuildSettings.png)
 
-After you Build the project, open the solution in Visual Studio.  Select x86 as the target configuration and build as usual.  If building in Release mode, make sure to edit the SmartHotelMR project settings and select "Compile with .NET Native tool chain" in the Build settings.
+5. After you Build the project, open the solution in Visual Studio. Select x86 as the target configuration and build as usual. If building in Release mode, make sure to edit the SmartHotelMR project settings and select "Compile with .NET Native tool chain" in the Build settings.
 
-### Usage
+6. The HoloLens version of this project uses voice commands for certain actions.  The following is a list of commands and actions:
 
-The HoloLens version of this project uses voice commands for certain actions.  The following is a list of commands and actions:
+    * In any mode (Admin or User) and both modules (Physical Visualizer and Virtual Explorer):
 
-#### In any mode (Admin or User) and both modules (Physical Visualizer and Virtual Explorer):
+        * **"Show Menu"**: Take the user back to the module selection scene
 
-**"Show Menu"**: Take the user back to the module selection scene
+    * In Admin mode and any module
 
-#### In Admin mode and any module
+        * **"Exit Admin"**: Exit Admin mode and place user in User mode (without reloading scene)
 
-**"Exit Admin"**: Exit Admin mode and place user in User mode (without reloading scene)
+    * In Physical Visualizer Admin mode
 
-#### In Physical Visualizer Admin mode
+        * **"Placement Mode"**: Switch to placing anchor(s)
 
-**"Placement Mode"**: Switch to placing anchor(s)
-
-**"Selection Mode"**: Switch to selecting anchor(s) and allow for deleting of them
+        * **"Selection Mode"**: Switch to selecting anchor(s) and allow for deleting of them
 
 # Contributing
 
