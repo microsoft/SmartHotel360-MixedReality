@@ -4,5 +4,6 @@ use_frameworks!
 target 'Unity-iPhone' do
 
   # Pods for Unity-iPhone
-  pod 'AzureSpatialAnchors', '1.0.1'
+  source 'https://mixedrealitycloud.visualstudio.com/Mixed%20Reality%20Cloud%20Preview/_git/Mixed%20Reality%20Cloud%20CocoaPod'
+  pod 'AzureSpatialAnchors', '1.0.0-release0011'
 end

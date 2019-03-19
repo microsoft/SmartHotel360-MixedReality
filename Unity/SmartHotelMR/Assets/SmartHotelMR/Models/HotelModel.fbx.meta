@@ -1,0 +1,233 @@
+fileFormatVersion: 2
+guid: 176ea869794453b4186dce391b21a749
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Block:block 2
+    100002: Box001
+    100004: Box002
+    100006: Box003
+    100008: Box004
+    100010: Box005
+    100012: Box006
+    100014: Box007
+    100016: Box010
+    100018: Box011
+    100020: Box012
+    100022: Box014
+    100024: Box015
+    100026: Box016
+    100028: Box017
+    100030: Box018
+    100032: Box019
+    100034: Box020
+    100036: Box021
+    100038: Camera
+    100040: Cylinder001
+    100042: //RootNode
+    100044: Light
+    100046: Plane001
+    100048: roof
+    400000: Block:block 2
+    400002: Box001
+    400004: Box002
+    400006: Box003
+    400008: Box004
+    400010: Box005
+    400012: Box006
+    400014: Box007
+    400016: Box010
+    400018: Box011
+    400020: Box012
+    400022: Box014
+    400024: Box015
+    400026: Box016
+    400028: Box017
+    400030: Box018
+    400032: Box019
+    400034: Box020
+    400036: Box021
+    400038: Camera
+    400040: Cylinder001
+    400042: //RootNode
+    400044: Light
+    400046: Plane001
+    400048: roof
+    2000000: Camera
+    2100000: 07 - Default
+    2100002: exterior
+    2100004: tile roof
+    2100006: roof
+    2300000: Box001
+    2300002: Box002
+    2300004: Box003
+    2300006: Box004
+    2300008: Box005
+    2300010: Box006
+    2300012: Box007
+    2300014: Box010
+    2300016: Box011
+    2300018: Box012
+    2300020: Box014
+    2300022: Box015
+    2300024: Box016
+    2300026: Box017
+    2300028: Box018
+    2300030: Box019
+    2300032: Box020
+    2300034: Box021
+    2300036: Cylinder001
+    2300038: Plane001
+    2300040: roof
+    2300042: //RootNode
+    3300000: Box001
+    3300002: Box002
+    3300004: Box003
+    3300006: Box004
+    3300008: Box005
+    3300010: Box006
+    3300012: Box007
+    3300014: Box010
+    3300016: Box011
+    3300018: Box012
+    3300020: Box014
+    3300022: Box015
+    3300024: Box016
+    3300026: Box017
+    3300028: Box018
+    3300030: Box019
+    3300032: Box020
+    3300034: Box021
+    3300036: Cylinder001
+    3300038: Plane001
+    3300040: roof
+    3300042: //RootNode
+    4300000: Plane001
+    4300002: roof
+    4300004: Box001
+    4300006: Cylinder001
+    4300008: Box002
+    4300010: Box003
+    4300012: Box004
+    4300014: Box005
+    4300016: Box006
+    4300018: Box007
+    4300020: Box010
+    4300022: Box011
+    4300024: Box012
+    4300026: Box014
+    4300028: Box015
+    4300030: Box016
+    4300032: Box017
+    4300034: Box018
+    4300036: Box019
+    4300038: Box020
+    4300040: Box021
+    10800000: Light
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 07 - Default
+    second: {fileID: 2100000, guid: 06635bf2f7e6b564fac668786a0957bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: exterior
+    second: {fileID: 2100000, guid: 7db578ae63b265c4f8c458b1497e47e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: roof
+    second: {fileID: 2100000, guid: b7133b8daa857ad4f8d8c63955608d72, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tile roof
+    second: {fileID: 2100000, guid: ddbfcf98f6e13474688bf665221437b4, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.25
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 1
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 1
+    normalCalculationMode: 3
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 0
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
