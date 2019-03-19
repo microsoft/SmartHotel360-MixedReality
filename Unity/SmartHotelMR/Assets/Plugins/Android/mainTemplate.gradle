@@ -19,18 +19,14 @@ allprojects {
         }
 
         maven {
-            url 'https://mixedrealitycloud.pkgs.visualstudio.com/_packaging/MRCloudFeed/maven/v1'
-            credentials {
-                username "VSTS"
-                password System.getenv("VSTS_ENV_ACCESS_TOKEN") ?: "${vstsGradleAccessToken}"
-            }
+           url 'https://microsoft.bintray.com/AzureSpatialAnchors'
         }
     }
 }
 
 apply plugin: 'com.android.application'
 
-def azureSpatialAnchorsSdkVersion = '1.0.0-release0011'
+def azureSpatialAnchorsSdkVersion = '1.0.1'
 
 /*
 The ARCore aar library contains the native shared libraries.  These are
