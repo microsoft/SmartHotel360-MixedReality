@@ -3,8 +3,7 @@
     "contentVersion": "1.0.0.0",
     "variables": {
         "spatialAnchor_name": "[concat('sh360mrapi',uniqueString(resourceGroup().id))]",
-        "app_name": "[concat('sh360mixedreality',uniqueString(resourceGroup().id))]",
-        "cosmosdb_name": "[concat('cosmosdb',uniqueString(resourceGroup().id))]"
+        "app_name": "[concat('sh360mixedreality',uniqueString(resourceGroup().id))]"
     },
     "resources": [
         {
@@ -113,31 +112,6 @@
             "properties": {
                 "ApplicationId": "[variables('app_name')]",
                 "Request_Source": "IbizaWebAppExtensionCreate"
-            }
-        },
-        {
-            "type": "Microsoft.DocumentDb/databaseAccounts",
-            "kind": "MongoDB",
-            "name": "[variables('cosmosdb_name')]",
-            "apiVersion": "2015-04-08",
-            "location": "eastus2",
-            "tags": {
-                "defaultExperience": "Azure Cosmos DB for MongoDB API"
-            },
-            "properties": {
-                "databaseAccountOfferType": "Standard",
-                "locations": [
-                    {
-                        "id": "[concat(variables('cosmosdb_name'), '-', 'eastus2')]",
-                        "failoverPriority": 0,
-                        "locationName": "East US 2"
-                    }
-                ],
-                "enableMultipleWriteLocations": false,
-                "isVirtualNetworkFilterEnabled": false,
-                "virtualNetworkRules": [],
-                "ipRangeFilter": "",
-                "dependsOn": []
             }
         }
     ]
