@@ -60,7 +60,6 @@ In the App Registration, click on Settings and then Required Permissions.
 In order to run this demo you will need the following resources:
 
 * [Spatial Anchors](https://azure.microsoft.com/en-us/services/spatial-anchors/)
-* [Cosmos DB](https://azure.microsoft.com/en-us/services/cosmos-db/) 
 * [App Service](https://azure.microsoft.com/en-us/services/app-service/)
     * Requires an App Service Plan and Application Insight to monitor the API.
 
@@ -91,7 +90,7 @@ After creating the resources. You need to assign that application permissions to
 
 In the Azure Portal, find the created App Service and navigate to the Application Settings blade. Complete the valuew of the following settings:
 
-1. DatabaseSettings__MongoDBConnectionString - This is the connection string for the SmartHotel360 Mixed Reality Cosmsos DB
+1. DatabaseSettings__MongoDBConnectionString - This is the connection string for the SmartHotel360 IoT Cosmsos DB
 2. SpatialServices__TenantId - Tenant Id of your Active Directory which the Application Registration was created
 3. SpatialServices__AccountId - Account Id of the Azure Spatial Anchors Account
 4. SpatialServices__applicationId - Application Id of the Application Registration created in previous steps
