@@ -27,6 +27,13 @@ ExportedObj/
 *.opendb
 *.pfx
 
+# Google packages
+GoogleARCore*.*
+PlayServices*.*
+[Gg]oogle*/
+[Pp]layServices*/
+.gradle/
+
 # Unity3D generated meta files
 *.pidb.meta
 *.pdb.meta
