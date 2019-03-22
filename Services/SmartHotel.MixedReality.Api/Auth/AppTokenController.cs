@@ -72,14 +72,14 @@ namespace SmartHotel.MixedReality.Api.Auth
 
                 var httpClient = new HttpClient();
 
-                using ( HttpResponseMessage httpResponse = httpClient.SendAsync( httpRequest ).Result )
+                using ( HttpResponseMessage httpResponse = await httpClient.SendAsync( httpRequest ) )
                 {
-                    var responseContent = httpResponse.Content.ReadAsStringAsync().Result;
-                    JObject responseJson = JObject.Parse( responseContent );
+                    httpResponse.EnsureSuccessStatusCode();
+
+                    var responseContent = await httpResponse.Content.ReadAsStringAsync();
+                    JObject responseJson = JObject.Parse(responseContent);
 
                     mrCloudtoken = responseJson["AccessToken"].ToObject<string>();
-
-                    //Console.WriteLine($"MR Cloud token is: {mrCloudtoken}");
                 }
             }
 

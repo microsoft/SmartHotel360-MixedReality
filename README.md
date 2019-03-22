@@ -75,8 +75,8 @@ After creating the resources. You need to assign that application permissions to
 
 1. Navigate to the newly created Spatial Anchors account in the Azure Portal.
 1. Select **Access Control (IAM)**. 
-1. Add a role assignment to this resource and select the Application Registration from the first step. 
-1. Assign **Owner** to the role of Spatial Anchors Account Owner and click **Save**.
+1. Add a role assignment to this resource and select the Role of **Spatial Anchors Account Owner** and select the Application Registration from the first step. 
+1. Click **Save**.
 
 ### 4. Deploy the API project using Visual Studio
 

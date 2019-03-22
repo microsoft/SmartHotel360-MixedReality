@@ -6,6 +6,8 @@
 Assets/AssetStoreTools*
 UWP/
 [Ll]ogs/
+[Bb]in/
+[Pp]roperties
 
 # Visual Studio cache directory
 .vs/
