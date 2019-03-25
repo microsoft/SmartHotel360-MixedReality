@@ -177,7 +177,7 @@ PlayerSettings:
   uIStatusBarHidden: 1
   uIExitOnSuspend: 0
   uIStatusBarStyle: 0
-  iPhoneSplashScreen: {fileID: 0}
+  iPhoneSplashScreen: {fileID: 2800000, guid: 09d3dc9819d69074f9be8ccc27a928f6, type: 3}
   iPhoneHighResSplashScreen: {fileID: 0}
   iPhoneTallHighResSplashScreen: {fileID: 0}
   iPhone47inSplashScreen: {fileID: 0}
@@ -237,8 +237,8 @@ PlayerSettings:
   templatePackageId: com.unity.template.3d@1.0.0
   templateDefaultScene: Assets/Scenes/SampleScene.unity
   AndroidTargetArchitectures: 5
-  AndroidSplashScreenScale: 0
-  androidSplashScreen: {fileID: 0}
+  AndroidSplashScreenScale: 2
+  androidSplashScreen: {fileID: 2800000, guid: 09d3dc9819d69074f9be8ccc27a928f6, type: 3}
   AndroidKeystoreName: 
   AndroidKeyaliasName: 
   AndroidBuildApkPerCpuArchitecture: 0
