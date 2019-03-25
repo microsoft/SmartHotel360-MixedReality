@@ -11,16 +11,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/SmartHotelMR/Scenes/Mobile/MobileMainMenu.unity
     guid: 34e35fb0e7c968e4fbce3f51986f0a0c
-  - enabled: 0
+  - enabled: 1
     path: Assets/SmartHotelMR/Scenes/Android/AndroidPhysicalVisualizer.unity
     guid: c65fc2d7bd9884d44a143cb91033b13b
-  - enabled: 0
+  - enabled: 1
     path: Assets/SmartHotelMR/Scenes/Android/AndroidVirtualExplorer.unity
     guid: 57fcc881dba436e4eafbb8637b4a86b0
-  - enabled: 1
+  - enabled: 0
     path: Assets/SmartHotelMR/Scenes/iOS/IosPhysicalVisualizer.unity
     guid: 351e225b8e1f749aa99f6b0755eab22b
-  - enabled: 1
+  - enabled: 0
     path: Assets/SmartHotelMR/Scenes/iOS/IosVirtualExplorer.unity
     guid: e338e1992787f4227b07bc0e5636f438
   - enabled: 0
