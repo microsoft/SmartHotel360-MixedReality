@@ -19,7 +19,7 @@ namespace SmartHotelMR
 #if UNITY_IOS
                 sceneName = "Ios" + sceneData.SceneName;
 #endif
-#elif UNITY_ANDROID
+#if UNITY_ANDROID
                 sceneName = "Android" + sceneData.SceneName;
 #endif
                 SmartHotelManager.Instance.LoadScene(sceneName, sceneData.IsAdmin);
