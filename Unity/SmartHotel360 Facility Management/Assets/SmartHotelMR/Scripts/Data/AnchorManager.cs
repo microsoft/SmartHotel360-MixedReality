@@ -375,6 +375,7 @@ namespace SmartHotelMR
                 {
                     try
                     {
+                        Debug.Log("Steph :" + request.downloadHandler.text);
                         var anchorSet = JsonConvert.DeserializeObject<AnchorSet>(request.downloadHandler.text);
 
                         if (!ignoreExisting && anchorSet != null && anchorSet.anchors != null && anchorSet.anchors.Any())
@@ -557,6 +558,8 @@ namespace SmartHotelMR
                 {
                     try
                     {
+                        Debug.Log("Steph :" + request.downloadHandler.text);
+
                         var anchorSet = JsonConvert.DeserializeObject<AnchorSet>(request.downloadHandler.text);
 
                         if (!ignoreExisting && anchorSet != null && anchorSet.anchors != null && anchorSet.anchors.Any())

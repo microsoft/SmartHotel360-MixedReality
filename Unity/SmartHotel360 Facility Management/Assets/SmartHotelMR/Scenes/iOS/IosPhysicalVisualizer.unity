@@ -828,13 +828,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1f99c26fd92ebf47a01083c458fd0e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChooserPanel: {fileID: 0}
-  BreadcrumbLabel: {fileID: 0}
-  SpaceItemPrefab: {fileID: 0}
-  DeviceItemPrefab: {fileID: 0}
-  ContentArea: {fileID: 0}
-  BackButton: {fileID: 0}
-  SelectButton: {fileID: 0}
+  ChooserPanel: {fileID: 1717702310}
+  BreadcrumbLabel: {fileID: 1404609676}
+  SpaceItemPrefab: {fileID: 1997044068648370, guid: 0860e74d33ac6454c92b3979d06041a5,
+    type: 3}
+  DeviceItemPrefab: {fileID: 1997044068648370, guid: 8e6daf511d49af34a8219ad9ec3dd4b4,
+    type: 3}
+  ContentArea: {fileID: 2131676361}
+  BackButton: {fileID: 289569150}
+  SelectButton: {fileID: 388127226}
 --- !u!114 &338225184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -847,19 +849,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a66fa3c2730827249adb780095df67b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AdminContent: {fileID: 0}
-  NoAnchorContent: {fileID: 0}
-  SensorAnchorPrefab: {fileID: 0}
-  DevicePanelPrefab: {fileID: 0}
-  EmailDebugLogObject: {fileID: 0}
-  StatusObject: {fileID: 0}
-  LoadingIndicator: {fileID: 0}
-  LoadingMessageLabel: {fileID: 0}
-  LoadingMessageLabelShadow: {fileID: 0}
-  MenuButton: {fileID: 0}
-  InputManager: {fileID: 0}
-  ConfirmationDialogPrefab: {fileID: 0}
-  DialogParent: {fileID: 0}
+  AdminContent: {fileID: 1320023157}
+  NoAnchorContent: {fileID: 35398989}
+  SensorAnchorPrefab: {fileID: 1848040652333530, guid: 49bbbb45fc479b64497c78ede3fc711a,
+    type: 3}
+  DevicePanelPrefab: {fileID: 7827664847422582070, guid: 9bb5c6f099665ef4e8c683c422a54d42,
+    type: 3}
+  EmailDebugLogObject: {fileID: 158900539}
+  StatusObject: {fileID: 1857498707}
+  LoadingIndicator: {fileID: 1710778175}
+  LoadingMessageLabel: {fileID: 1382369280}
+  LoadingMessageLabelShadow: {fileID: 2004690338}
+  MenuButton: {fileID: 1996202812}
+  InputManager: {fileID: 450655810}
+  ConfirmationDialogPrefab: {fileID: 1606891628513726, guid: dd37584943d607f4ea463e79315839a4,
+    type: 3}
+  DialogParent: {fileID: 1320023158}
 --- !u!114 &338225185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -872,7 +877,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1db51da5d34c5b489c3c9a60f11714d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InputManager: {fileID: 0}
+  InputManager: {fileID: 450655810}
 --- !u!114 &338225186
 MonoBehaviour:
   m_ObjectHideFlags: 0
