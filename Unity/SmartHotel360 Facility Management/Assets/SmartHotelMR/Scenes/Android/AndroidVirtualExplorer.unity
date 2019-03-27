@@ -1322,6 +1322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneName: MobileMainMenu
+  SharedScene: 1
   IsAdmin: 0
 --- !u!114 &1079065645
 MonoBehaviour:

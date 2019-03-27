@@ -16,13 +16,22 @@ namespace SmartHotelMR
             if (sceneData != null)
             {
                 string sceneName = "";
+
+	            if (!sceneData.SharedScene)
+	            {
 #if UNITY_IOS
                 sceneName = "Ios" + sceneData.SceneName;
 #endif
 #if UNITY_ANDROID
-                sceneName = "Android" + sceneData.SceneName;
+		            sceneName = "Android" + sceneData.SceneName;
 #endif
-                SmartHotelManager.Instance.LoadScene(sceneName, sceneData.IsAdmin);
+	            }
+	            else
+	            {
+		            sceneName = sceneData.SceneName;
+	            }
+
+	            SmartHotelManager.Instance.LoadScene(sceneName, sceneData.IsAdmin);
             }
         }
     }
