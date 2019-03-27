@@ -40,7 +40,8 @@ PlayerSettings:
     width: 1
     height: 1
   m_SplashScreenLogos: []
-  m_VirtualRealitySplashScreen: {fileID: 0}
+  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: 405e53e8ce99471458f7cf8468d7a501,
+    type: 3}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1024
   defaultScreenHeight: 768
@@ -761,11 +762,31 @@ PlayerSettings:
   metroPackageVersion: 1.0.0.0
   metroCertificatePath: Assets\WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: DefaultCompany
-  metroCertificateIssuer: DefaultCompany
-  metroCertificateNotAfter: 00cfc33e69b1d501
+  metroCertificateSubject: Microsoft
+  metroCertificateIssuer: Microsoft
+  metroCertificateNotAfter: 00adfabdbe03d601
   metroApplicationDescription: SmartHotelMR
-  wsaImages: {}
+  wsaImages:
+    2031632: Assets/Images/Uwp Icons/Square44x44Logo.targetsize-16_altform-unplated.png
+    2031640: Assets/Images/Uwp Icons/Square44x44Logo.targetsize-24_altform-unplated.png
+    2031648: Assets/Images/Uwp Icons/Square44x44Logo.targetsize-32_altform-unplated.png
+    2031664: Assets/Images/Uwp Icons/Square44x44Logo.targetsize-48_altform-unplated.png
+    2031716: Assets/Images/Uwp Icons/Square44x44Logo.scale-100.png
+    2031741: Assets/Images/Uwp Icons/Square44x44Logo.scale-125.png
+    2031766: Assets/Images/Uwp Icons/Square44x44Logo.scale-150.png
+    2031816: Assets/Images/Uwp Icons/Square44x44Logo.scale-200.png
+    2031872: Assets/Images/Uwp Icons/Square44x44Logo.targetsize-256_altform-unplated.png
+    2032016: Assets/Images/Uwp Icons/Square44x44Logo.scale-400.png
+    2162788: Assets/Images/Uwp Icons/Square150x150Logo.scale-100.png
+    2162813: Assets/Images/Uwp Icons/Square150x150Logo.scale-125.png
+    2162838: Assets/Images/Uwp Icons/Square150x150Logo.scale-150.png
+    2162888: Assets/Images/Uwp Icons/Square150x150Logo.scale-200.png
+    2163088: Assets/Images/Uwp Icons/Square150x150Logo.scale-400.png
+    2293860: Assets/Images/Uwp Icons/Wide310x150Logo.scale-100.png
+    2293885: Assets/Images/Uwp Icons/Wide310x150Logo.scale-125.png
+    2293910: Assets/Images/Uwp Icons/Wide310x150Logo.scale-150.png
+    2293960: Assets/Images/Uwp Icons/Wide310x150Logo.scale-200.png
+    2294160: Assets/Images/Uwp Icons/Wide310x150Logo.scale-400.png
   metroTileShortName: SmartHotelMR
   metroTileShowName: 0
   metroMediumTileShowName: 0
