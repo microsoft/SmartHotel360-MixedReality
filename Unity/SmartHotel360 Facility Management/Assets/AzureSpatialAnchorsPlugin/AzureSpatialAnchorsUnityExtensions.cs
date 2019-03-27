@@ -15,6 +15,7 @@ namespace Microsoft.Azure.SpatialAnchors.Unity.Samples
 {
     public static class AzureSpatialAnchorsUnityExtensions
     {
+
         /// <summary>
         /// Adds the appropriate platform specific augmented reality anchor.
         /// </summary>

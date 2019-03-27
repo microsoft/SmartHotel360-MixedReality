@@ -112,11 +112,21 @@ namespace SmartHotelMR
 
         public void StartAnchorService()
         {
-            ConfigureSession();
-            AzureSpatialAnchorManager.Instance.EnableProcessing = true;
+            try
+            {
 
-            if (IsLocating)
-                AzureSpatialAnchorManager.Instance.CreateWatcher();
+                    ConfigureSession();
+                    AzureSpatialAnchorManager.Instance.EnableProcessing = true;
+
+                    if (IsLocating)
+                        AzureSpatialAnchorManager.Instance.CreateWatcher();
+               
+            }
+            catch(Exception e)
+            {
+                Debug.Log("StartAnchorService :: Exception " + e.Message);
+            }
+
         }
 
         public void StopAnchorService(bool clearStatus = true)
@@ -133,8 +143,16 @@ namespace SmartHotelMR
 
         private void ConfigureSession()
         {
-            List<string> anchorsToFind = new List<string>(_anchors.Select(a => a.id));
-            AzureSpatialAnchorManager.Instance.SetAnchorIdsToLocate(anchorsToFind);
+            try
+            {
+                List<string> anchorsToFind = new List<string>(_anchors.Select(a => a.id));
+                AzureSpatialAnchorManager.Instance.SetAnchorIdsToLocate(anchorsToFind);
+
+            }
+            catch (Exception e)
+            {
+                Debug.Log("ConfigureSession :: Exception: " + e.Message);
+            }
         }
 
         private void CloudManager_SessionUpdated(object sender, SessionUpdatedEventArgs args)
@@ -199,9 +217,26 @@ namespace SmartHotelMR
             }
         }
 
-        private CloudSpatialAnchor CreateLocalAnchor(GameObject anchorObject)
+        private IEnumerator CreateLocalAnchor(GameObject anchorObject, Action<CloudSpatialAnchor> callback)
         {
-            anchorObject.AddARAnchor();
+            lock (_dispatchQueue)
+            {
+                _dispatchQueue.Enqueue(new Action(() =>
+                {
+                    anchorObject.AddARAnchor();
+                    StartCoroutine(CreateLocalAnchorInternal(anchorObject, callback));
+                }));
+            }
+            yield return null;
+           
+        }
+
+        private IEnumerator CreateLocalAnchorInternal(GameObject anchorObject, Action<CloudSpatialAnchor> callback)
+        {
+            yield return new WaitForSeconds(.5f);
+
+            yield return new WaitWhile(() => anchorObject.GetNativeAnchorPointer() == null);
+            yield return new WaitWhile(() => anchorObject.GetNativeAnchorPointer() == IntPtr.Zero);
 
             CloudSpatialAnchor localCloudAnchor = new CloudSpatialAnchor();
             localCloudAnchor.LocalAnchor = anchorObject.GetNativeAnchorPointer();
@@ -209,10 +244,9 @@ namespace SmartHotelMR
             if (localCloudAnchor.LocalAnchor == IntPtr.Zero)
             {
                 Debug.LogError("Didn't get the local XR anchor pointer...");
-                return null;
             }
 
-            return localCloudAnchor;
+            callback(localCloudAnchor);
         }
 
         public async Task DeleteAnchor(GameObject anchorObject, GameObject relatedObject, CloudSpatialAnchor cloudAnchor)
@@ -375,13 +409,13 @@ namespace SmartHotelMR
                 {
                     try
                     {
-                        Debug.Log("Steph :" + request.downloadHandler.text);
                         var anchorSet = JsonConvert.DeserializeObject<AnchorSet>(request.downloadHandler.text);
 
                         if (!ignoreExisting && anchorSet != null && anchorSet.anchors != null && anchorSet.anchors.Any())
                         {
                             _anchors = anchorSet.anchors;
                             IsLocating = true;
+                            Debug.Log("Locating anchor(s), please walk around your environment");
                             SetStatusMessage("Locating anchor(s), please walk around your environment");
                         }
 
@@ -450,78 +484,81 @@ namespace SmartHotelMR
 
             var anchorPosition = anchorObject.transform.position;
 
-            CloudSpatialAnchor cloudAnchor = CreateLocalAnchor(anchorObject);
-
-            Task.Run(async () =>
+            StartCoroutine(CreateLocalAnchor(anchorObject,(cloudAnchor) =>
             {
-                try
+                Task.Run(async () =>
                 {
-                    SetStatusMessage("Saving anchor...");
-
-                    cloudAnchor = await AzureSpatialAnchorManager.Instance.StoreAnchorInCloud(cloudAnchor);
-
-                    if (cloudAnchor != null)
+                    try
                     {
-                        Debug.Log("AnchorManager::OnSetVirtualExplorerAnchor - Cloud Anchor created");
+                        SetStatusMessage("Saving anchor...");
 
-                        bool success = await SaveVirtualExplorerAnchor(AnchorSetManager.Instance.SelectedAnchorSet.id, cloudAnchor);
+                        cloudAnchor = await AzureSpatialAnchorManager.Instance.StoreAnchorInCloud(cloudAnchor);
 
-                        if (success)
+                        if (cloudAnchor != null)
                         {
-                            Debug.Log("AnchorManager::OnSetVirtualExplorerAnchor - Virtual Explorer Anchor created");
+                            Debug.Log("AnchorManager::OnSetVirtualExplorerAnchor - Cloud Anchor created");
 
-                            lock (_cloudAnchors)
+                            bool success = await SaveVirtualExplorerAnchor(AnchorSetManager.Instance.SelectedAnchorSet.id, cloudAnchor);
+
+                            if (success)
                             {
-                                _cloudAnchors.Add(cloudAnchor);
-                            }
+                                Debug.Log("AnchorManager::OnSetVirtualExplorerAnchor - Virtual Explorer Anchor created");
 
-                            SetStatusMessage(string.Empty);
-
-                            lock (_dispatchQueue)
-                            {
-                                _dispatchQueue.Enqueue(new Action(() =>
+                                lock (_cloudAnchors)
                                 {
-                                    BroadcastMessage("OnAnchorPlaced",
-                                        new AnchorPlacedResult()
-                                        {
-                                            AnchorObject = anchorObject,
-                                            CloudAnchor = cloudAnchor
-                                        });
-                                }));
+                                    _cloudAnchors.Add(cloudAnchor);
+                                }
+
+                                SetStatusMessage(string.Empty);
+
+                                lock (_dispatchQueue)
+                                {
+                                    _dispatchQueue.Enqueue(new Action(() =>
+                                    {
+                                        BroadcastMessage("OnAnchorPlaced",
+                                            new AnchorPlacedResult()
+                                            {
+                                                AnchorObject = anchorObject,
+                                                CloudAnchor = cloudAnchor
+                                            });
+                                    }));
+                                }
+                            }
+                            else
+                            {
+                                await AzureSpatialAnchorManager.Instance.DeleteAnchorAsync(cloudAnchor);
+
+                                lock (_dispatchQueue)
+                                {
+                                    _dispatchQueue.Enqueue(new Action(() =>
+                                    {
+                                        BroadcastMessage("OnSaveAnchorFailed", anchorObject);
+                                    }));
+                                }
                             }
                         }
-                        else
-                        {
-                            await AzureSpatialAnchorManager.Instance.DeleteAnchorAsync(cloudAnchor);
 
-                            lock (_dispatchQueue)
+                        IsSaving = false;
+                    }
+                    catch (Exception ex)
+                    {
+                        SetStatusMessage("Saving anchor failed, please try again.");
+                        Debug.LogError("AnchorManager::OnSetVirtualExplorerAnchor - Failed to save anchor " + ex.Message);
+                        Destroy(anchorObject);
+                        IsSaving = false;
+
+                        lock (_dispatchQueue)
+                        {
+                            _dispatchQueue.Enqueue(new Action(() =>
                             {
-                                _dispatchQueue.Enqueue(new Action(() =>
-                                {
-                                    BroadcastMessage("OnSaveAnchorFailed", anchorObject);
-                                }));
-                            }
+                                BroadcastMessage("OnSaveAnchorFailed", anchorObject);
+                            }));
                         }
                     }
+                });
+            }));
 
-                    IsSaving = false;
-                }
-                catch (Exception ex)
-                {
-                    SetStatusMessage("Saving anchor failed, please try again.");
-                    Debug.LogError("AnchorManager::OnSetVirtualExplorerAnchor - Failed to save anchor " + ex.Message);
-                    Destroy(anchorObject);
-                    IsSaving = false;
-
-                    lock (_dispatchQueue)
-                    {
-                        _dispatchQueue.Enqueue(new Action(() =>
-                        {
-                            BroadcastMessage("OnSaveAnchorFailed", anchorObject);
-                        }));
-                    }
-                }
-            });
+       
         }
         #endregion
 
@@ -558,9 +595,8 @@ namespace SmartHotelMR
                 {
                     try
                     {
-                        Debug.Log("Steph :" + request.downloadHandler.text);
-
-                        var anchorSet = JsonConvert.DeserializeObject<AnchorSet>(request.downloadHandler.text);
+                       
+                       var anchorSet = JsonConvert.DeserializeObject<AnchorSet>(request.downloadHandler.text);
 
                         if (!ignoreExisting && anchorSet != null && anchorSet.anchors != null && anchorSet.anchors.Any())
                         {
@@ -569,9 +605,7 @@ namespace SmartHotelMR
                         }
 
                         StartAnchorService();
-
-                        Debug.Log("AnchorManager::LoadPhysicalVisualizerAnchors - Anchors loaded, calling OnAnchorsLoaded");
-
+                       
                         lock (_dispatchQueue)
                         {
                             _dispatchQueue.Enqueue(new Action(() =>
@@ -616,75 +650,78 @@ namespace SmartHotelMR
             IsSaving = true;
 
             var anchorPosition = anchorObject.transform.position;
-
-            CloudSpatialAnchor cloudAnchor = CreateLocalAnchor(anchorObject);
-
-            Task.Run(async () =>
+            StartCoroutine(CreateLocalAnchor(anchorObject, (cloudAnchor) =>
             {
-                try
+                Task.Run(async () =>
                 {
-                    SetStatusMessage("Saving anchor...");
-
-                    cloudAnchor = await AzureSpatialAnchorManager.Instance.StoreAnchorInCloud(cloudAnchor);
-
-                    if (cloudAnchor != null)
+                    try
                     {
-                        Debug.Log("AnchorManager::AddPhysicalVisualizerAnchor - Cloud Anchor created");
+                        SetStatusMessage("Saving anchor...");
 
-                        bool success = await SavePhysicalVisualizerAnchor(AnchorSetManager.Instance.SelectedAnchorSet.id, deviceId, cloudAnchor);
+                        cloudAnchor = await AzureSpatialAnchorManager.Instance.StoreAnchorInCloud(cloudAnchor);
 
-                        if (success)
+                        if (cloudAnchor != null)
                         {
-                            Debug.Log("AnchorManager::AddPhysicalVisualizerAnchor - Physical Visualizer Anchor created");
+                            Debug.Log("AnchorManager::AddPhysicalVisualizerAnchor - Cloud Anchor created");
 
-                            lock (_cloudAnchors)
+                            bool success = await SavePhysicalVisualizerAnchor(AnchorSetManager.Instance.SelectedAnchorSet.id, deviceId, cloudAnchor);
+
+                            if (success)
                             {
-                                _cloudAnchors.Add(cloudAnchor);
-                            }
+                                Debug.Log("AnchorManager::AddPhysicalVisualizerAnchor - Physical Visualizer Anchor created");
 
-                            IsSaving = false;
-                            SetStatusMessage("Anchor saved");
-
-                            lock (_dispatchQueue)
-                            {
-                                _dispatchQueue.Enqueue(new Action(() =>
+                                lock (_cloudAnchors)
                                 {
-                                    BroadcastMessage("OnAnchorPlaced",
-                                        new AnchorPlacedResult()
-                                        {
-                                            AnchorObject = anchorObject,
-                                            AssociatedId = deviceId,
-                                            CloudAnchor = cloudAnchor
-                                        });
-                                }));
+                                    _cloudAnchors.Add(cloudAnchor);
+                                }
+
+                                IsSaving = false;
+                                SetStatusMessage("Anchor saved");
+
+                                lock (_dispatchQueue)
+                                {
+                                    _dispatchQueue.Enqueue(new Action(() =>
+                                    {
+                                        BroadcastMessage("OnAnchorPlaced",
+                                            new AnchorPlacedResult()
+                                            {
+                                                AnchorObject = anchorObject,
+                                                AssociatedId = deviceId,
+                                                CloudAnchor = cloudAnchor
+                                            });
+                                    }));
+                                }
+                            }
+                            else
+                            {
+                                Debug.Log("AnchorManager::AddPhysicalVisualizerAnchor - Failed to create anchor");
+                                await AzureSpatialAnchorManager.Instance.DeleteAnchorAsync(cloudAnchor);
                             }
                         }
-                        else
-                        {
-                            Debug.Log("AnchorManager::AddPhysicalVisualizerAnchor - Failed to create anchor");
-                            await AzureSpatialAnchorManager.Instance.DeleteAnchorAsync(cloudAnchor);
-                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    SetStatusMessage("Saving anchor failed, please try again.");
-                    Debug.LogError("AnchorManager::AddPhysicalVisualizerAnchor - Failed to save anchor " + ex.Message);
-
-                    if (ex.InnerException != null)
-                        Debug.LogError("AnchorManager::AddPhysicalVisualizerAnchor - InnerException: " + ex.InnerException.ToString());
-
-                    lock (_dispatchQueue)
+                    catch (Exception ex)
                     {
-                        _dispatchQueue.Enqueue(new Action(() =>
-                        {
-                            Destroy(anchorObject);
-                        }));
-                    }
+                        SetStatusMessage("Saving anchor failed, please try again.");
+                        Debug.LogError("AnchorManager::AddPhysicalVisualizerAnchor - Failed to save anchor " + ex.Message);
 
-                    IsSaving = false;
-                }
-            });
+                        if (ex.InnerException != null)
+                            Debug.LogError("AnchorManager::AddPhysicalVisualizerAnchor - InnerException: " + ex.InnerException.ToString());
+
+                        lock (_dispatchQueue)
+                        {
+                            _dispatchQueue.Enqueue(new Action(() =>
+                            {
+                                Destroy(anchorObject);
+                            }));
+                        }
+
+                        IsSaving = false;
+                    }
+                });
+
+            }));
+
+
         }
         #endregion
     }

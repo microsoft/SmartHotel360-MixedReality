@@ -1939,9 +1939,12 @@ namespace Microsoft.Azure.SpatialAnchors
         public Microsoft.Azure.SpatialAnchors.CloudSpatialAnchorWatcher CreateWatcher(Microsoft.Azure.SpatialAnchors.AnchorLocateCriteria criteria)
         {
             IntPtr result_handle;
-            Microsoft.Azure.SpatialAnchors.CloudSpatialAnchorWatcher result_object;
-            NativeLibraryHelpers.CheckStatus(this.handle, NativeLibrary.ssc_cloud_spatial_anchor_session_create_watcher(this.handle, criteria.handle, out result_handle));
-            result_object = (result_handle != IntPtr.Zero) ? new Microsoft.Azure.SpatialAnchors.CloudSpatialAnchorWatcher(result_handle, transfer:true) : null;
+            Microsoft.Azure.SpatialAnchors.CloudSpatialAnchorWatcher result_object = null;
+
+                NativeLibraryHelpers.CheckStatus(this.handle, NativeLibrary.ssc_cloud_spatial_anchor_session_create_watcher(this.handle, criteria.handle, out result_handle));
+                result_object = (result_handle != IntPtr.Zero) ? new Microsoft.Azure.SpatialAnchors.CloudSpatialAnchorWatcher(result_handle, transfer: true) : null;
+                return result_object;
+         
             return result_object;
         }
 

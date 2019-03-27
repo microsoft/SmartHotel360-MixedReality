@@ -286,7 +286,7 @@ namespace SmartHotelMR
 
         public void OnEmailClicked()
         {
-#if DEBUG && !WINDOWS_UWP
+#if DEBUG && !WINDOWS_UWP && !UNITY_IOS
             ShowLoadingIndicator("Getting log data...");
 
             StartCoroutine(DebugLogService.Instance.GetLogText((log) =>

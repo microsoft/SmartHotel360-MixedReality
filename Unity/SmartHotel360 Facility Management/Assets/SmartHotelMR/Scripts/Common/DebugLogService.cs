@@ -10,7 +10,7 @@ namespace SmartHotelMR
 {
     public class DebugLogService : Singleton<DebugLogService>
     {
-#if DEBUG && !WINDOWS_UWP
+#if DEBUG && !WINDOWS_UWP && !UNITY_IOS
         private const string LogFile = "SmartHotelMR_Log.txt";
         private const int MaxLogLength = 64; // This value is in kilobytes
 

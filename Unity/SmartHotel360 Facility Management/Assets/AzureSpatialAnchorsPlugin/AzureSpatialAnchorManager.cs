@@ -135,6 +135,8 @@ public class AzureSpatialAnchorManager : MonoBehaviour
         Debug.Log($"Updating ARCORE: {GoogleARCoreInternal.ARCoreAndroidLifecycleManager.Instance.NativeSession.SessionHandle.ToString()}");
     }
 #endif
+
+
     // Use this for initialization
     private void Start()
     {
@@ -151,11 +153,8 @@ public class AzureSpatialAnchorManager : MonoBehaviour
                 cloudServices.CallStatic("initialize", unityActivity);
             }
         });
-
-        StartCoroutine(CreateNewCloudSession());
-#else
-        StartCoroutine(CreateNewCloudSession());
 #endif
+        StartCoroutine(CreateNewCloudSession());
     }
 
     void Update()
