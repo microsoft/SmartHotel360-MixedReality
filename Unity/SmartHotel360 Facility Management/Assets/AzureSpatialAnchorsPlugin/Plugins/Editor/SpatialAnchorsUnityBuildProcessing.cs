@@ -15,7 +15,7 @@ public class SpatialAnchorsUnityBuildProcessing : IActiveBuildTargetChanged, IPo
 {
     private const string ARCorePluginFolder = @"Assets\GoogleARCore";
     private const string ARKitPluginFolder = @"Assets\UnityARKitPlugin";
-    private const string AzureSpatialAnchorsPackage = "Azure.SpatialAnchors.WinCPP";
+    private const string AzureSpatialAnchorsPackage = "Microsoft.Azure.SpatialAnchors.WinCPP";
     private const string UnityRelativePodFilePath = "Assets/AzureSpatialAnchorsPlugin/Plugins/iOS/Podfile";
     private const string UnityRelativePackageVersionFilePath = @"Assets\AzureSpatialAnchorsPlugin\Plugins\HoloLens\version.txt";
 
