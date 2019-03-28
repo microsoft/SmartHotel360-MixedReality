@@ -64,7 +64,7 @@ namespace SmartHotelMR
 
                 using (var request = UnityWebRequestTexture.GetTexture(url, true))
                 {
-
+	                request.AddApiKeyHeader(Globals.ApiKey);
                     yield return request.SendWebRequest();
 
                     if (request.isNetworkError || request.isHttpError)
