@@ -16,6 +16,10 @@ For this reference app scenario, we rely on several apps and services from the S
 
 # SmartHotel360 - Mixed Reality Demo
 
+Welcome to the SmartHotel360 Mixed Reality repository. Here you'll find everything you need to run the API and client apps (Android, iOS and UWP for HoloLens) as part of this demo.
+
+![Architecture](Documents/Images/Architecture.png)
+
 ## Getting Started
 
 SmartHotel360 deployed a new Mixed Reality solution built on top of **Azure Spatial Anchors** that is compatible with Android and HoloLens devices through Unity to visualize the information of the hotel room sensors used in the Internet of Things (IoT) solutions mentioned below. 
