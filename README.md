@@ -155,8 +155,23 @@ Before building the Unity project for any platform, you'll need to update the se
     * In Physical Visualizer Admin mode
 
         * **"Placement Mode"**: Switch to placing anchor(s)
-
         * **"Selection Mode"**: Switch to selecting anchor(s) and allow for deleting of them
+
+###  10. iOS (Optional)
+
+1. Download the [Unity-ARKit-Plugin](<https://bitbucket.org/Unity-Technologies/unity-arkit-plugin/downloads/>)  repo 
+
+2. Copy the Assets/UnityARKitPlugin to the Assets folder in the Unity project
+
+3. To build, switch to the iOS platform and then select the Mobile/iOS specific scenes in the Build Settings window. Should look similar to this:
+
+   ![iOSBuildSettings](Documents\Images\iOSBuildSettings.png)
+
+4. After building, open your terminal in your folder and run the following commands
+
+   ​	**pod install --repo-update**
+
+   ​	**open ./Unity-iPhone.xcworkspace**
 
 # Contributing
 
