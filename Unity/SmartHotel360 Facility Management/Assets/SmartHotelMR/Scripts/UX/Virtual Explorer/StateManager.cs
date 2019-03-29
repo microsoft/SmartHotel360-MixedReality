@@ -133,7 +133,7 @@ namespace SmartHotelMR
             using (var request = new UnityWebRequest(url))
             {
                 request.method = UnityWebRequest.kHttpVerbPUT;
-                request.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(CurrentState)));
+                request.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes(JsonUtility.ToJson(CurrentState)));
                 request.SetRequestHeader("Content-Type", "application/json");
                 request.AddApiKeyHeader(Globals.ApiKey);
 

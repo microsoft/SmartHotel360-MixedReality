@@ -43,7 +43,7 @@ namespace SmartHotelMR
                 }
                 else
                 {
-                     Spaces = JsonUtility.FromJson<SpacesWrapper>(("{\"values\":" + request.downloadHandler.text + "}"))?.values.ToList();
+                    Spaces = JsonUtility.FromJson<SpacesWrapper>(("{\"values\":" + request.downloadHandler.text + "}"))?.values.ToList();
 
                     //Load Brand Images
                     yield return StartCoroutine(LoadBrandImages(GetBrands()));

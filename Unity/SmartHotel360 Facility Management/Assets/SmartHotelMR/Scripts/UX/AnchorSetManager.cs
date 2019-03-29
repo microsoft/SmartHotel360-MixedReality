@@ -52,7 +52,7 @@ namespace SmartHotelMR
                 {
                     var anchors = JsonUtility.FromJson<AnchorSetWrapper>("{\"values\":" + request.downloadHandler.text + "}")?.values;
 
-                    foreach (var set in anchorSets.OrderBy(a => a.name))
+                    foreach (var set in anchors.OrderBy(a => a.name))
                     {
                         var obj = GameObject.Instantiate(ItemPrefab);
                         var binding = obj.GetComponent<AnchorSetBinding>();
