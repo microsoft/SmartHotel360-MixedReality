@@ -409,11 +409,11 @@ namespace SmartHotelMR
                 {
                     try
                     {
-                        var anchorSet = JsonConvert.DeserializeObject<AnchorSet>(request.downloadHandler.text);
+                        var anchorSet = JsonUtility.FromJson<AnchorSet>(request.downloadHandler.text);
 
                         if (!ignoreExisting && anchorSet != null && anchorSet.anchors != null && anchorSet.anchors.Any())
                         {
-                            _anchors = anchorSet.anchors;
+                            _anchors = anchorSet.anchors.ToList();
                             IsLocating = true;
                             Debug.Log("Locating anchor(s), please walk around your environment");
                             SetStatusMessage("Locating anchor(s), please walk around your environment");
@@ -596,11 +596,11 @@ namespace SmartHotelMR
                     try
                     {
                        
-                       var anchorSet = JsonConvert.DeserializeObject<AnchorSet>(request.downloadHandler.text);
+                       var anchorSet = JsonUtility.FromJson<AnchorSet>(request.downloadHandler.text);
 
                         if (!ignoreExisting && anchorSet != null && anchorSet.anchors != null && anchorSet.anchors.Any())
                         {
-                            _anchors = anchorSet.anchors;
+                            _anchors = anchorSet.anchors.ToList();
                             IsLocating = true;
                         }
 

@@ -10,4 +10,10 @@ namespace SmartHotelMR
         public string roomId;
         public string desiredValue;
     }
+
+    [Serializable]
+    public class DesiredDataWrapper
+    {
+        public DesiredData[] values;
+    }
 }

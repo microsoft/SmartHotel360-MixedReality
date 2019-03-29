@@ -90,7 +90,7 @@ namespace SmartHotelMR
                     {
                         if (request.responseCode == 200)
                         {
-                            var state = JsonConvert.DeserializeObject<State>(request.downloadHandler.text);
+                            var state = JsonUtility.FromJson<State>(request.downloadHandler.text);
 
                             if (state.currentSelectedSpace != CurrentState.currentSelectedSpace)
                             {

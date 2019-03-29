@@ -10,4 +10,11 @@ namespace SmartHotelMR
         public string name;
         public List<Anchor> anchors;
     }
+
+
+    [Serializable]
+    public class AnchorSetWrapper
+    {
+        public AnchorSet[] values;
+    }
 }

@@ -13,4 +13,10 @@ namespace SmartHotelMR
         public string eventTimestamp;
         public string ioTHubDeviceId;
     }
+
+    [Serializable]
+    public class SensorDataWrapper
+    {
+        public SensorData[] values;
+    }
 }

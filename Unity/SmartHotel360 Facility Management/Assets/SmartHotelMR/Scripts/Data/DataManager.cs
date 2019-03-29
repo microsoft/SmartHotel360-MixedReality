@@ -43,7 +43,7 @@ namespace SmartHotelMR
                 }
                 else
                 {
-                    Spaces = JsonConvert.DeserializeObject<List<Space>>(request.downloadHandler.text);
+                     Spaces = JsonUtility.FromJson<SpacesWrapper>(("{\"values\":" + request.downloadHandler.text + "}"))?.values.ToList();
 
                     //Load Brand Images
                     yield return StartCoroutine(LoadBrandImages(GetBrands()));
@@ -159,8 +159,9 @@ namespace SmartHotelMR
                 {
                     try
                     {
-                        var sensorData = JsonConvert.DeserializeObject<List<SensorData>>(request.downloadHandler.text);
-                        callback(sensorData);
+                        var sensorData  = JsonUtility.FromJson<SensorDataWrapper>("{\"values\":" + request.downloadHandler.text + "}")?.values;
+
+                        callback(sensorData.ToList());
                     }
                     catch (Exception e)
                     {
@@ -195,7 +196,7 @@ namespace SmartHotelMR
                 {
                     try
                     {
-                        var desiredData = JsonConvert.DeserializeObject<List<DesiredData>>(request.downloadHandler.text);
+                        var desiredData = JsonUtility.FromJson<DesiredDataWrapper>("{\"values\":" + request.downloadHandler.text + "}")?.values.ToList();
                         callback(desiredData);
                     }
                     catch (Exception e)

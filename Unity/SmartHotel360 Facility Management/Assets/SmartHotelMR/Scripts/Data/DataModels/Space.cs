@@ -24,4 +24,10 @@ namespace SmartHotelMR
         public List<Value> values;
         public List<Device> devices;
     }
+
+    [Serializable]
+    public class SpacesWrapper
+    {
+        public Space[] values;
+    }
 }

@@ -50,7 +50,7 @@ namespace SmartHotelMR
                 }
                 else
                 {
-                    var anchorSets = JsonConvert.DeserializeObject<List<AnchorSet>>(request.downloadHandler.text);
+                    var anchors = JsonUtility.FromJson<AnchorSetWrapper>("{\"values\":" + request.downloadHandler.text + "}")?.values;
 
                     foreach (var set in anchorSets.OrderBy(a => a.name))
                     {
