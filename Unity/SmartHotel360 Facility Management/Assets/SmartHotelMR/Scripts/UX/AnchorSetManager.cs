@@ -89,7 +89,7 @@ namespace SmartHotelMR
                     yield break;
                 }
 
-                SelectedAnchorSet = JsonConvert.DeserializeObject<AnchorSet>(request.downloadHandler.text);
+                SelectedAnchorSet = JsonUtility.FromJson<AnchorSet>(request.downloadHandler.text);
                 OnLoadAnchorSet();
             }
         }
