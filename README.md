@@ -26,9 +26,31 @@ You can find a **[demo script](Documents/DemoScript)** with walkthroughs once yo
 
 ## Setup
 
-### Prerequisite
+### Prerequisites
 
 Prior to following these steps, you should have already completed the steps and deployed the SmartHotel360 IoT solution found in this repository: https://github.com/Microsoft/SmartHotel360-IoT. These steps rely on resources deployed from that solution and this API will not function without those resources.
+
+In addition, you will need:
+
+1. For Android:
+
+        * Windows 10 with Visual Studio 2017 or higher. (You can also use a Mac)
+        * Unity Installed with Android Module.
+        * Android Studio.
+        * Android Mobile Device with Developer Mode enabled.
+        
+2. For HoloLens:
+
+        * Windows 10 with Visual Studio 2017 or higher.
+        * Unity Installed with UWP Module.
+        * HoloLens Device with Developer Mode enabled.
+        
+3. For iOS:
+
+        * Mac with Visual Studio installed.
+        * Unity Installed with iOS Module.
+        * XCode installed.
+        * iOS Device 
 
 ### 1. Set up a Service Principal and Register an Azure Active Directory Application
 
@@ -126,7 +148,7 @@ Before building the Unity project for any platform, you'll need to update the se
 
 ![AndroidBuildSettings](Documents/Images/AndroidBuildSettings.png)
 
-4. After you Build and Export the project, open it in Android Studio. Once loaded and synced, build the solution.
+4. After you Build and Export the project, open it in Android Studio. Once loaded and synced, build the solution and run it in your Android device.
 
 ### 9. HoloLens (Optional)
 
@@ -140,7 +162,7 @@ Before building the Unity project for any platform, you'll need to update the se
 
 ![HoloLensBuildSettings](Documents/Images/HoloLensBuildSettings.png)
 
-5. After you Build the project, open the solution in Visual Studio. Select x86 as the target configuration and build as usual. If building in Release mode, make sure to edit the SmartHotelMR project settings and select "Compile with .NET Native tool chain" in the Build settings.
+5. After you Build the project, open the solution in Visual Studio. Select x86 as the target configuration and build as usual. If building in Release mode, make sure to edit the SmartHotelMR project settings and select "Compile with .NET Native tool chain" in the Build settings. You can deploy the app using WiFi or USB. Refer to the [official documentation](https://docs.microsoft.com/en-us/windows/mixed-reality/using-visual-studio) for more information.
 
 6. The HoloLens version of this project uses voice commands for certain actions.  The following is a list of commands and actions:
 
@@ -159,19 +181,25 @@ Before building the Unity project for any platform, you'll need to update the se
 
 ###  10. iOS (Optional)
 
-1. Download the [Unity-ARKit-Plugin](<https://bitbucket.org/Unity-Technologies/unity-arkit-plugin/downloads/>)  repo 
+1. Using your Mac, download the [Unity-ARKit-Plugin](https://bitbucket.org/Unity-Technologies/unity-arkit-plugin/downloads) repo. 
 
-2. Copy the Assets/UnityARKitPlugin to the Assets folder in the Unity project
+2. Copy the Assets/UnityARKitPlugin to the Assets folder in the Unity project.
 
 3. To build, switch to the iOS platform and then select the Mobile/iOS specific scenes in the Build Settings window. Should look similar to this:
 
-   ![iOSBuildSettings](Documents\Images\iOSBuildSettings.png)
+   ![iOSBuildSettings](Documents/Images/iOSBuildSettings.png)
 
 4. After building, open your terminal in your folder and run the following commands
 
-   ​	**pod install --repo-update**
+   ```
+   pod install --repo-update
+   ```
 
-   ​	**open ./Unity-iPhone.xcworkspace**
+   ```
+   open ./Unity-iPhone.xcworkspace
+   ```
+   
+5. Run and deploy the application in your iOS device.
 
 # Contributing
 
