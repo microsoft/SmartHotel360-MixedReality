@@ -29,6 +29,8 @@ You will need to have provisioned a demo environment following the **[setup guid
 5. Once in the hotel room you selected you can see the two sensors (temperature and light) showing the information of the settings and also the status of that hotel room (occupided and unoccupided).
 6. Using the Facility Management website from the IoT solution or the SmartHotel360 Mobile app you can change the values of that specific room and the values will syncronize with the mixed reality application. 
 
+![Walkthrough Using the Virtual Explorer](../Images/VirtualExplorer.gif)
+
 ## Walkthrough: Using the Physical Visualizer with MXChip device
 
 > Note: you will need to setup the [MXChip device](https://github.com/Microsoft/SmartHotel360-IoT#mxchip) as part of the IoT Solution for this demo.
@@ -39,6 +41,8 @@ You will need to have provisioned a demo environment following the **[setup guid
 4. Once the device is recognized the application will ask you to select the hotel brand, building, floor and room where this device should be saved.
 5. Once saved with the Unity application you will be able to visualize the information from that sensor on top of it.
 6. Using the Facility Management website or the SmartHotel360 mobile app you also can change the values for the tempeture or lights of that hotel room and you will be able to see how the values are syncronized using the unity application.
+
+![Walkthrough Using the Physical Visualizer](../Images/PhysicalExplorer.gif)
  
 ## Summary
 
