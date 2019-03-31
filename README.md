@@ -20,6 +20,8 @@ Welcome to the SmartHotel360 Mixed Reality repository. Here you'll find everythi
 
 ![Architecture](Documents/Images/Architecture.png)
 
+[![Build status](https://dev.azure.com/smarthotel360/MixedReality/_apis/build/status/MixedRealityAPI-CI)](https://dev.azure.com/smarthotel360/MixedReality/_build/latest?definitionId=34)
+
 ## Getting Started
 
 SmartHotel360 deployed a new Mixed Reality solution built on top of **Azure Spatial Anchors** that is compatible with Android and HoloLens devices through Unity to visualize the information of the hotel room sensors used in the Internet of Things (IoT) solutions mentioned below. 
