@@ -1,5 +1,5 @@
 # SmartHotel360
-During **Connect(); 2017** event this year we presented beautiful app demos using Xamarin and many features of Azure. This repository contains a mixed reality demo and reference application to show how to integrate the new mixed reality service **Azure Spatial Anchors** in a Unity project using the existing [SmartHotel360 IoT](https://github.com/Microsoft/SmartHotel360-IoT) demo.
+This repository contains a mixed reality demo and reference application to show how to integrate the new mixed reality service **Azure Spatial Anchors** in a Unity project using the existing [SmartHotel360 IoT](https://github.com/Microsoft/SmartHotel360-IoT) demo.
 
 # SmartHotel360 Repos
 
