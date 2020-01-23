@@ -1,3 +1,7 @@
+# **The project SmartHotel360 have been retired, we have archived it. It is no longer maintained. You still can fork the repository.**
+
+## For the latest sample references visit: https://aka.ms/tailwindtraders & https://aka.ms/rpsls 
+
 # SmartHotel360
 This repository contains a mixed reality demo and reference application to show how to integrate the new mixed reality service **Azure Spatial Anchors** in a Unity project using the existing [SmartHotel360 IoT](https://github.com/Microsoft/SmartHotel360-IoT) demo.
 
@@ -19,8 +23,6 @@ For this reference app scenario, we rely on several apps and services from the S
 Welcome to the SmartHotel360 Mixed Reality repository. Here you'll find everything you need to run the API and client apps (Android, iOS and UWP for HoloLens) as part of this demo.
 
 ![Architecture](Documents/Images/Architecture.png)
-
-[![Build status](https://dev.azure.com/smarthotel360/MixedReality/_apis/build/status/MixedRealityAPI-CI)](https://dev.azure.com/smarthotel360/MixedReality/_build/latest?definitionId=34)
 
 ## Getting Started
 
